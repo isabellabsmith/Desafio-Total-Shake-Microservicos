@@ -36,7 +36,6 @@ public class PedidoController {
         return ResponseEntity.ok(new PedidoDTOResponse(pedidoService.findPedidoById(id)));
     }
 
-
     @PutMapping("/pedido/cancelar/{id}")
     public ResponseEntity<PedidoDTOResponse> cancelarPedido(@PathVariable Long id){
         return ResponseEntity.ok(pedidoService.cancelPedido(id));

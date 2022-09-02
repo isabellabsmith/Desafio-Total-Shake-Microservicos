@@ -1,0 +1,1 @@
+insert into pagamento(id,valor,nome,expiracao,codigo,status,forma_de_pagamento,pedido_id) values(1,100.5,"abc","09/2027","123","CRIADO","PIX",1);

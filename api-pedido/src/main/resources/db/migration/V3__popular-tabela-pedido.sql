@@ -1,0 +1,1 @@
+insert into pedido(id,data_hora,status) values(1,'2022-08-29 12:06:26', 'CRIADO'), (2,'2022-08-30 12:06:26', 'CRIADO');
