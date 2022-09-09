@@ -13,54 +13,53 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value="/pedido")
 public class PedidoController {
-
     private final PedidoService pedidoService;
 
     public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
     }
-    @PostMapping("/pedido")
-    public ResponseEntity<PedidoDTOResponse> criarPedido(@RequestBody @Valid PedidoDTOPost pedidoPostDTO){
+    @PostMapping
+    public ResponseEntity<Pedido> criarPedido(@RequestBody @Valid PedidoDTOPost pedidoPostDTO){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(pedidoService.savePedido(pedidoPostDTO));
     }
 
-    @GetMapping("/pedido")
+    @GetMapping
     public List<Pedido> findAll(){
         return pedidoService.findAll();
     }
 
-    @GetMapping("/pedido/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PedidoDTOResponse> buscarPedido(@PathVariable Long id){
         return ResponseEntity.ok(new PedidoDTOResponse(pedidoService.findPedidoById(id)));
     }
 
-    @PutMapping("/pedido/cancelar/{id}")
+    @PutMapping("/cancelar/{id}")
     public ResponseEntity<PedidoDTOResponse> cancelarPedido(@PathVariable Long id){
         return ResponseEntity.ok(pedidoService.cancelPedido(id));
     }
 
-    @PutMapping("/pedido/pago/{id}")
+    @PutMapping("/pago/{id}")
     public ResponseEntity<PedidoDTOResponse> mudarStatusPedidoPago(@PathVariable Long id){
         return ResponseEntity.ok(pedidoService.pedidoPago(id));
     }
 
-    @PutMapping("/pedido/{id}/itens/{itemId}/acrescentar/{quantidade}")
+    @PutMapping("/{id}/itens/{itemId}/acrescentar/{quantidade}")
     public ResponseEntity<PedidoDTOResponse> acrescentarItem(@PathVariable Long id, @PathVariable Long itemId,
                                                              @PathVariable Integer quantidade){
         return ResponseEntity.ok(pedidoService.addItem(id, itemId, quantidade));
     }
 
-    @PutMapping("/pedido/{id}/itens/{itemId}/reduzir/{quantidade}")
+    @PutMapping("/{id}/itens/{itemId}/reduzir/{quantidade}")
     public ResponseEntity<PedidoDTOResponse> reduzirItem(@PathVariable Long id, @PathVariable Long itemId,
                                                          @PathVariable Integer quantidade){
         return ResponseEntity.ok(pedidoService.decreaseItemQuantity(id, itemId, quantidade));
     }
 
-    @DeleteMapping("/pedido/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deletePedido(@PathVariable Long id) {
         pedidoService.deleteById(id);
     }
-
 }

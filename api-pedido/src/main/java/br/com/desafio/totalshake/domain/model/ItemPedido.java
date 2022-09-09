@@ -25,6 +25,13 @@ public class ItemPedido {
 
     public ItemPedido(){}
 
+    public ItemPedido(Long id, Integer quantidade, String descricao, Pedido pedido) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.descricao = descricao;
+        this.pedido = pedido;
+    }
+
     public Long getId() {
         return id;
     }
