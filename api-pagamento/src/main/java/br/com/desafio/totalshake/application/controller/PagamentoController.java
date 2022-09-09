@@ -1,10 +1,9 @@
 package br.com.desafio.totalshake.application.controller;
 
-import br.com.desafio.totalshake.PedidoEndpoint;
+import br.com.desafio.totalshake.proxy.PedidoProxy;
 import br.com.desafio.totalshake.application.DTO.FormaDePagamentoDTO;
 import br.com.desafio.totalshake.application.DTO.PagamentoDTOPost;
 import br.com.desafio.totalshake.application.DTO.PagamentoDTOResponse;
-import br.com.desafio.totalshake.domain.model.FormaDePagamento;
 import br.com.desafio.totalshake.domain.model.Pagamento;
 import br.com.desafio.totalshake.domain.service.PagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -22,8 +19,9 @@ import java.util.List;
 public class PagamentoController {
 
     @Autowired
-    PedidoEndpoint pedidoEndpoint;
+    PedidoProxy pedidoProxy;
 
+    @Autowired
     private final PagamentoService pagamentoService;
 
     public PagamentoController(PagamentoService pagamentoService) {
@@ -59,7 +57,7 @@ public class PagamentoController {
     @PutMapping("/confirmar/{id}")
     public ResponseEntity<PagamentoDTOResponse> confirmarPagamento(@PathVariable Long id){
         Pagamento pagamento = pagamentoService.findPagamentoById(id);
-        pedidoEndpoint.mudarStatusPedidoPago(pagamento.getPedidoId());
+        pedidoProxy.mudarStatusPedidoPago(pagamento.getPedidoId());
         return ResponseEntity.ok(pagamentoService.confirmPedido(id));
     }
 
