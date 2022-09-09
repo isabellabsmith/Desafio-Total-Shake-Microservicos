@@ -30,7 +30,17 @@ public class PagamentoDTOPost {
 
     private FormaDePagamento formaDePagamento;
 
-    PagamentoDTOPost() {}
+    public PagamentoDTOPost() {}
+
+    public PagamentoDTOPost(BigDecimal valor, String nome, String numero, String expiracao, String codigo, Long pedidoId, FormaDePagamento formaDePagamento) {
+        this.valor = valor;
+        this.nome = nome;
+        this.numero = numero;
+        this.expiracao = expiracao;
+        this.codigo = codigo;
+        this.pedidoId = pedidoId;
+        this.formaDePagamento = formaDePagamento;
+    }
 
     public Pagamento toPagamento() {
         return new Pagamento(this.getValor(), this.getNome(), this.getNumero(), this.getExpiracao(), this.getCodigo(),

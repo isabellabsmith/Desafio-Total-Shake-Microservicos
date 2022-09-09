@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value="/pagamento")
 public class PagamentoController {
 
     @Autowired
@@ -29,40 +30,40 @@ public class PagamentoController {
         this.pagamentoService = pagamentoService;
     }
 
-    @GetMapping("/pagamento")
+    @GetMapping
     public List<Pagamento> findAll(){
         return pagamentoService.findAll();
     }
 
-    @GetMapping("/pagamento/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PagamentoDTOResponse> buscarPagamento(@PathVariable Long id){
         return ResponseEntity.ok(new PagamentoDTOResponse(pagamentoService.findPagamentoById(id)));
     }
 
-    @PostMapping("/pagamento")
+    @PostMapping
     public ResponseEntity<PagamentoDTOResponse> criarPagamento(@RequestBody @Valid PagamentoDTOPost pagamentoPostDTO){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(pagamentoService.createPagamento(pagamentoPostDTO));
     }
 
-    @PutMapping("/pagamento/cancelar/{id}")
+    @PutMapping("/cancelar/{id}")
     public ResponseEntity<PagamentoDTOResponse> cancelarPagamento(@PathVariable Long id){
         return ResponseEntity.ok(pagamentoService.cancelPagamento(id));
     }
 
-    @PutMapping("/pagamento/alterar/{id}")
+    @PutMapping("/alterar/{id}")
     public ResponseEntity<PagamentoDTOResponse> mudarFormaDePagamento(@PathVariable Long id, @RequestBody FormaDePagamentoDTO formaDePagamento) {
         return ResponseEntity.ok(pagamentoService.changeFormaDePagamento(id, formaDePagamento));
     }
 
-    @PutMapping("/pagamento/confirmar/{id}")
+    @PutMapping("/confirmar/{id}")
     public ResponseEntity<PagamentoDTOResponse> confirmarPagamento(@PathVariable Long id){
         Pagamento pagamento = pagamentoService.findPagamentoById(id);
         pedidoEndpoint.mudarStatusPedidoPago(pagamento.getPedidoId());
         return ResponseEntity.ok(pagamentoService.confirmPedido(id));
     }
 
-    @DeleteMapping("/pagamento/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deletePagamento(@PathVariable Long id) {
         pagamentoService.deleteById(id);
     }

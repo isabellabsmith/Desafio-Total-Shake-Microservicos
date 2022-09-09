@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class PagamentoDTOResponse {
+    private Long id;
     private BigDecimal valor;
     private String nome;
     private Status status;
@@ -20,11 +21,20 @@ public class PagamentoDTOResponse {
     private FormaDePagamento formaDePagamento;
 
     public PagamentoDTOResponse(Pagamento pagamento) {
+        this.id = pagamento.getId();
         this.valor = pagamento.getValor();
         this.nome = pagamento.getNome();
         this.status = pagamento.getStatus();
         this.pedidoId = pagamento.getPedidoId();
         this.formaDePagamento = pagamento.getFormaDePagamento();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public PagamentoDTOResponse(){}
