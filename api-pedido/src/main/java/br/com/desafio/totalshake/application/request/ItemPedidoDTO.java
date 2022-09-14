@@ -12,6 +12,8 @@ public class ItemPedidoDTO {
         this.quantidade = quantidade;
     }
 
+    public ItemPedidoDTO() {}
+
     @NotNull @Size(min = 3, max = 100)
     private String descricao;
 

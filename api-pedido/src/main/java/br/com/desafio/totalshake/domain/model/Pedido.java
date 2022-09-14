@@ -2,7 +2,6 @@ package br.com.desafio.totalshake.domain.model;
 
 import br.com.desafio.totalshake.application.exception.ItemNaoExisteException;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,6 +29,16 @@ public class Pedido {
     public LocalDateTime getDataHora() {
         return dataHora;
     }
+
+
+    public Pedido(Long id, LocalDateTime dataHora, Status status, List<ItemPedido> itens) {
+        this.id = id;
+        this.dataHora = dataHora;
+        this.status = status;
+        this.itens = itens;
+    }
+
+    public Pedido(){}
 
     public Long getId() {
         return id;

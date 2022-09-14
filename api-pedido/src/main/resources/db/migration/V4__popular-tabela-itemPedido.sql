@@ -1,0 +1,1 @@
+insert into item_pedido(id,quantidade,descricao,pedido_id) values(1, 2, 'abc', 1), (2, 3, 'abcd', 1), (3, 4, 'def', 2), (4, 5, 'defg', 2);

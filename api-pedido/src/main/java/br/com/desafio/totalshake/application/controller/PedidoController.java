@@ -13,16 +13,20 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/pedidos", produces = "application/json", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@RequestMapping(value="/pedido")
 public class PedidoController {
-
     private final PedidoService pedidoService;
 
     public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
     }
+    @PostMapping
+    public ResponseEntity<Pedido> criarPedido(@RequestBody @Valid PedidoDTOPost pedidoPostDTO){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(pedidoService.savePedido(pedidoPostDTO));
+    }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Pedido> findAll(){
         return pedidoService.findAll();
     }
@@ -31,13 +35,6 @@ public class PedidoController {
     public ResponseEntity<PedidoDTOResponse> buscarPedido(@PathVariable Long id){
         return ResponseEntity.ok(new PedidoDTOResponse(pedidoService.findPedidoById(id)));
     }
-
-    @PostMapping
-    public ResponseEntity<PedidoDTOResponse> criarPedido(@RequestBody @Valid PedidoDTOPost pedidoPostDTO){
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(pedidoService.savePedido(pedidoPostDTO));
-    }
-
 
     @PutMapping("/cancelar/{id}")
     public ResponseEntity<PedidoDTOResponse> cancelarPedido(@PathVariable Long id){
@@ -61,9 +58,8 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.decreaseItemQuantity(id, itemId, quantidade));
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     public void deletePedido(@PathVariable Long id) {
         pedidoService.deleteById(id);
     }
-
 }

@@ -22,7 +22,7 @@ public class PedidoService {
     }
 
     @Transactional
-    public PedidoDTOResponse savePedido(PedidoDTOPost pedidoDTOPost) {
+    public Pedido savePedido(PedidoDTOPost pedidoDTOPost) {
 
         var pedido = pedidoDTOPost.toPedidoModel();
 
@@ -30,7 +30,7 @@ public class PedidoService {
         pedido.setDataHora(LocalDateTime.now());
         pedido = pedidoRepository.save(pedido);
 
-        return new PedidoDTOResponse(pedido);
+        return pedido;
     }
 
     @Transactional

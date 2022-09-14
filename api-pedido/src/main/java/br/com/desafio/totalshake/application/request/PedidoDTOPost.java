@@ -13,6 +13,12 @@ public class PedidoDTOPost {
     @NotNull @NotEmpty
     List<@Valid ItemPedidoDTO> itens;
 
+    public PedidoDTOPost(List<@Valid ItemPedidoDTO> itens) {
+        this.itens = itens;
+    }
+
+    public PedidoDTOPost() {}
+
     public Pedido toPedidoModel() {
         var pedido = new Pedido();
         List<ItemPedido> itensPedido = itens
